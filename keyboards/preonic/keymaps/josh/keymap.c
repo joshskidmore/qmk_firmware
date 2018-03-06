@@ -1,8 +1,5 @@
 #include "preonic.h"
 #include "action_layer.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 #include "eeconfig.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -34,29 +31,150 @@ enum preonic_keycodes {
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
 #define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
 #define MEH_GRV     MEH_T(KC_GRV)               // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
+#define TRI_TG      LGUI(LSFT(KC_A))            // Trigger Telegram
+#define TRI_SL      LGUI(LSFT(KC_S))            // Trigger Slack
+#define TRI_FB      LGUI(LSFT(KC_D))            // Trigger Facebook
+#define MON_L       LGUI(KC_W)                  // Switch to left monitor
+#define MON_R       LGUI(KC_E)                  // Switch to right monitor
+#define ROFI        LGUI(KC_P)                  // Rofi
+#define RPASTE      LGUI(LALT(KC_V))            // Rofi paste
+#define BRT_O       LSFT(KC_F9)                 // Lowest Brightness
+#define BRT_D       LSFT(KC_F10)                // Decrease brightness 
+#define BRT_U       LSFT(KC_F11)                // Increase brightness 
+#define BRT_F       LSFT(KC_F12)                // Highest brightness
+
+enum {
+      COL_QUO = 0,
+      SYN_TGGL,
+      LFT_BRK,
+      RGT_BRK,
+      SFT_CAPS,
+      BRT_D_O,
+      BRT_U_F,
+      WS1,
+      WS2,
+      WS3,
+      WS4,
+      WS5,
+      WS6,
+      WS7,
+};
+
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [COL_QUO]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+    [SYN_TGGL] = ACTION_TAP_DANCE_DOUBLE(LGUI(LCTL(KC_W)), LGUI(LCTL(KC_E))),
+    [LFT_BRK]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
+    [RGT_BRK]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+    [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
+    [BRT_D_O]  = ACTION_TAP_DANCE_DOUBLE(BRT_D, BRT_O),
+    [BRT_U_F]  = ACTION_TAP_DANCE_DOUBLE(BRT_U, BRT_F),
+
+    [WS1]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_1), LGUI(LSFT(KC_1))),
+    [WS2]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_2), LGUI(LSFT(KC_2))),
+    [WS3]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_3), LGUI(LSFT(KC_3))),
+    [WS4]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_4), LGUI(LSFT(KC_4))),
+    [WS5]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_5), LGUI(LSFT(KC_5))),
+    [WS6]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), LGUI(LSFT(KC_6))),
+    [WS7]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_7), LGUI(LSFT(KC_7))),
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |  0   |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | - _  |
+ * | TAB  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |  P   | BKSP |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+ * |CT ESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | ; "  |ENTER |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  "   |
+ * |SHIFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SHIFT |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | GUI  |      |  F12 | Alt  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
+ * | CTRL |      |  GUI | ALT  |LOWER |SPACE |SPACE |RAISE | LEFT | DOWN |  UP  |RIGHT |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {HPR_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS},
-  {CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, SFT_ENT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
-  {KC_LGUI, _______, KC_F12,  KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+/* `        1        2        3          4      5       6       7        8        9         0            DEL          */
+  { KC_GRV,  KC_1,    KC_2,    KC_3,      KC_4,  KC_5,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS      },
+  { HPR_TAB, KC_Q,    KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC      },
+  { CTL_ESC, KC_A,    KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD(COL_QUO), KC_ENT       },
+  { KC_LSFT, KC_Z,    KC_X,    KC_C,      KC_V,  KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     TD(SFT_CAPS) },
+  { KC_LCTL, _______, KC_LGUI, KC_LALT,   LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RGHT      }
 },
+
+
+/* Raise
+ * ,-----------------------------------------------------------------------------------.
+ * |      | WS 1 | WS 2 | WS 3 | WS 4 | WS 5 | WS 6 | WS 7 |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      | SYN  |MON_L |MON_R |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | TERM | TELE | SLCK |  FB  |      |      | MS L | MS D | MS U | MS R |MS LCL|MS RCL|
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |RPAST |      |      |      |      |M AC 0|M AC 1|M AC 2|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | MUTE | PAUS |      |      |LOWER | ROFI | ROFI |RAISE | PREV |VOL U |VOL D | NEXT |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_RAISE] = {
+/* `        1             2        3         4        5        6        7        8        9        0        DEL    */
+  { _______, TD(WS1),      TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), _______, _______, _______, _______ },
+  { _______, TD(SYN_TGGL), MON_L,   MON_R,   _______, _______, _______, _______, _______, _______, _______, _______ },
+  { KC_F12,  TRI_TG,       TRI_SL,  TRI_FB,  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2 },
+  { _______, _______,      _______, _______, RPASTE,  _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2 },
+  { KC_MUTE, KC_MPLY,      _______, _______, _______, ROFI,    ROFI,    _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT }
+},
+
+
+/* Lower
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |   =  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      | | \  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      | WH L | WH D | WH U | WH R |      |   "  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      | [ {  |  ] } |  \   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | LOCK |      |      |      |LOWER | ROFI | ROFI |RAISE |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_LOWER] = {
+/*  `             1        2        3        4        5        6        7        8            9            0        DEL     */
+  { _______,      _______, _______, _______, _______, _______, _______, _______, _______,     _______,     _______, KC_EQL  },
+  { _______,      _______, _______, _______, _______, _______, _______, _______, _______,     _______,     _______, KC_BSLS },
+  { _______,      _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U,     KC_WH_R,     _______, KC_QUOT },
+  { _______,      _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______ },
+  { LCTL(KC_DEL), _______, _______, _______, _______, ROFI,    ROFI,    _______, _______,     _______,     _______, _______ }
+},
+
+
+/* Adjust (Lower + Raise)
+ * ,-----------------------------------------------------------------------------------.
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |RESET |      |      |      |      |      |      |      |      |PRTSCR|      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |BRT D |BRT U |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_ADJUST] = {
+/* `         1        2        3        4        5        6        7            8            9        0        DEL     */
+  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,       KC_F9,       KC_F10,  KC_F11,  KC_F12  },
+  { _______, RESET,   _______, _______, _______, _______, _______, _______,     _______,     _______, KC_PSCR, _______ },
+  { _______, _______, _______, _______, _______, _______, _______, TD(BRT_D_O), TD(BRT_U_F), _______, _______, _______ },
+  { _______, _______, _______, _______, _______, _______, _______, _______,     _______,     _______, _______, _______ },
+  { _______, _______, _______, _______, _______, _______, _______, _______,     _______,     _______, _______, _______ }
+},
+
+
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
@@ -98,90 +216,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {CTL_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS},
   {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    SFT_ENT},
   {KC_F12,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
-},
-
-/* Lower
- * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   0  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   $  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F11 |  F12 |      |      |      |      |      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Mute |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
- */
-[_LOWER] = {
-  {ALL_T(KC_GRV), KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL},
-  {ALL_T(KC_0),   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL},
-  {CTL_T(KC_DLR), KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______},
-  {_______,       KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {KC_MUTE,       _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
-},
-
-/* Raise
- * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | F12  |      |      |      |      |      |   _  |   ?  |   +  |   {  |   }  |  |   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |   -  |   /  |   =  |   [  |   ]  |  \   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Home |PageDn|PageUp| End  |
- * `-----------------------------------------------------------------------------------'
- */
-[_RAISE] = {
-  {ALL_T(KC_TILD), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL},
-  {ALL_T(KC_TILD), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL},
-  {KC_F12,         _______, _______, _______, _______, _______, KC_UNDS, KC_QUES, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______,        _______, _______, _______, _______, _______, KC_MINS, KC_SLSH, KC_EQL,  KC_LBRC, KC_RBRC, SFT_T(KC_BSLS)},
-  {_______,        _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END}
-},
-
-/* Adjust (Lower + Raise)
- * ,-----------------------------------------------------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Reset|      |      |      |      |      |      |      |      |      | Reset|
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_ADJUST] = {
-  {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_startup[][2] = {
-  {NOTE_B5, 20},
-  {NOTE_B6, 8},
-  {NOTE_DS6, 20},
-  {NOTE_B6, 8}
-};
 
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -192,27 +232,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_qwerty);
-            #endif
             persistent_default_layer_set(1UL<<_QWERTY);
           }
           return false;
           break;
         case COLEMAK:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_colemak);
-            #endif
             persistent_default_layer_set(1UL<<_COLEMAK);
           }
           return false;
           break;
         case DVORAK:
           if (record->event.pressed) {
-            #ifdef AUDIO_ENABLE
-              PLAY_SONG(tone_dvorak);
-            #endif
             persistent_default_layer_set(1UL<<_DVORAK);
           }
           return false;
@@ -251,36 +282,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     return true;
 };
-
-void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
