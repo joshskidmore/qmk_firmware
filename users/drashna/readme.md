@@ -3,33 +3,6 @@ Overview
 
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared. 
 
-Userspace Config.h
-------------------
-
-By default, the userspace feature doesn't include a `config.h` file the way that that keyboards, revisions, keymaps and layouts handle them.  This means that if you want global configurations via userspace, it's very difficult to implement.  
-
-The reason for using seperate files here is that the `drashna.h` file doesn't get called in such a way that will actually define QMK settings.  Additionally, attempting to add it to the `config.h` files has issues. Namely, the `drashna.h` file requires the `quantum.h` file... but including this to the `config.h` attemps to redefines a bunch of settings and breaks the firmare.  Removing the `quantum.h` include means that a number of data structures no longer get added, and the `SAFE_RANGE` value is no longer defined, as well.  So we need both a `config.h` for global config, and we need a seperate h file for local settings. 
-
-However, the `rules.mk` file is included when building the firmware.  So we can hijack that process to "manually" add a `config.h`. To do so, you would need to add the following to the `rules.mk` in your userspace:
-
-```
-ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
-    CONFIG_H += users/$(KEYMAP)/config.h
-endif
-```
-
-You can replace `$(KEYMAP)` with your name, but it's not necessary. This checks for the existence of `/users/<name>/config.h`, and if it exists, includes it like every other `config.h` file, allowing you to make global `config.h` settings. 
-
-As for the `config.h` file, you want to make sure that it has an "ifdef" in it to make sure it's only used once.  So you want something like this: 
-
-```
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
-
-// put stuff here 
-
-#endif
-```
 
 Custom userspace handlers
 -------------------------
@@ -122,8 +95,8 @@ If you would *also* like to take advantage of this feature, you'll first want to
 Then you can create this file and add your macro strings to it:
 
 ###### secrets.h
-```
-PROGMEM const char secret[][64] = {
+```c
+static const char * const secrets[] = {
   "secret1",
   "secret2",
   "secret3",
@@ -132,11 +105,29 @@ PROGMEM const char secret[][64] = {
 };
 ```
 
-Replacing the strings with the codes that you need. 
+Replacing the strings with the codes that you need.
 
+In the `<name>.c` file, you will want to add this to the top: 
 
-These are called in the `process_record_user` function, using this block:
+```c
+
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#include "secrets.h"
+#else
+// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
+// And I'm not familiar enough to know which is better or why...
+static const char * const secrets[] = {
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5"
+};
+#endif
 ```
+
+And then, in the `process_record_user` function, you'll want to add this block:
+```c
   case KC_SECRET_1 ... KC_SECRET_5:
     if (!record->event.pressed) {
       send_string_P(secret[keycode - KC_SECRET_1]);
@@ -145,4 +136,61 @@ These are called in the `process_record_user` function, using this block:
     break;
 ```
 
-And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined, as well. 
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<name>.h` file fo the new macros, as well.
+
+Additionally, if you want to make sure that you can disable the function without messing with the file, you need to add this to your `/users/<name>/rules.mk`, so that it catches the flag:
+```c
+ifeq ($(strip $(NO_SECRETS)), yes)
+    OPT_DEFS += -DNO_SECRETS
+endif
+```
+
+Then, if you run `make keyboard:name NO_SECRETS=yes`, it will default to the test strings in your `<name>.c` file, rather than reading from your file. 
+
+
+Userspace EEPROM config
+-----------------------
+
+This adds EEPROM support fo the userspace, so that certain values are configurable in such a way that persists when power is lost.  Namely, just the clicky feature and the Overwatch macro option ("is_overwatch").  This is done by reading and saving the structure from EEPROM. 
+
+To implement this, first you need to specify the location:
+
+```c
+#define EECONFIG_USERSPACE (uint8_t *)20
+```
+This tells us where in the EEPROM that the data structure is located, and this specifies that it's a byte (8 bits).  However, to maximize it's usage, we want to specify a data structure here, so that we can use multiple settings.  To do that:
+
+```c
+typedef union {
+  uint8_t raw;
+  struct {
+    bool     clicky_enable  :1;
+    bool     is_overwatch   :1;
+  };
+} userspace_config_t;
+```
+Then, in your C file, you want to add: `userspace_config_t userspace_config;`, and in your `matrix_init_*` function, you want to add `userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);`
+
+From there, you'd want to use the data structure (such as `userspace_config.is_overwatch`) when you want to check this value.  
+
+And if you want to update it, update directly and then use `eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);` to write the value back to the EEPROM. 
+
+
+Pro Micro Hacking
+-----------------
+
+Well, you can get the QMK DFU bootloader working on the ProMicro. But you need to change fuses.  
+
+What worked to get into the firmware properly was: 
+
+```
+Low: 0x5E High: 0x99 Extended: 0xF3 Lock: 0xFF
+```
+
+But some of the columns and rows didn't work, like the pin mapping was wrong. Even when setting the bootloader settings.
+ 
+ This is here for future reference.  And the default fuse settings I believe were:
+
+```
+Low: 0xFF High: 0xD8 Extended: 0xC3 Lock: 0x3F
+```
