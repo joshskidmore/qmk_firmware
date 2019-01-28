@@ -43,10 +43,16 @@ enum preonic_keycodes {
 #define BRT_D       LSFT(KC_F10)                // Decrease brightness
 #define BRT_U       LSFT(KC_F11)                // Increase brightness
 #define BRT_F       LSFT(KC_F12)                // Highest brightness
+#define SYN_A       LALT(LSFT(KC_A))            // Synergy: Machine 1/A
+#define SYN_B       LALT(LSFT(KC_S))            // Synergy: Machine 2/B
+#define SYN_C       LALT(LSFT(KC_D))            // Synergy: Machine 3/C
+#define SYN_D       LALT(LSFT(KC_F))            // Synergy: Machine 4/D
+#define SYN_E       LALT(LSFT(KC_G))            // Synergy: Machine 5/E
 
 enum {
       COL_QUO = 0,
       SYN_TGGL,
+      SYN_TGGL_B,
       LFT_BRK,
       RGT_BRK,
       SFT_CAPS,
@@ -64,13 +70,13 @@ enum {
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [COL_QUO]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-    [SYN_TGGL] = ACTION_TAP_DANCE_DOUBLE(LGUI(LCTL(KC_W)), LGUI(LCTL(KC_E))),
-    [LFT_BRK]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
-    [RGT_BRK]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
-    [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
-    [BRT_D_O]  = ACTION_TAP_DANCE_DOUBLE(BRT_D, BRT_O),
-    [BRT_U_F]  = ACTION_TAP_DANCE_DOUBLE(BRT_U, BRT_F),
+    [COL_QUO]    = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_B, SYN_A),
+    [LFT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
+    [RGT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+    [SFT_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
+    [BRT_D_O]    = ACTION_TAP_DANCE_DOUBLE(BRT_D, BRT_O),
+    [BRT_U_F]    = ACTION_TAP_DANCE_DOUBLE(BRT_U, BRT_F),
 
     [WS1]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_1), LGUI(LSFT(KC_1))),
     [WS2]      = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_2), LGUI(LSFT(KC_2))),
@@ -92,18 +98,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |CTLESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | ; "  |ENTER |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |SHIFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |CTLESC|
+ * |SHIFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SYN_TG|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | CTRL |      |  GUI | ALT  |LOWER |SPACE |SPACE |RAISE | LEFT | DOWN |  UP  |RIGHT |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-/* `        1        2        3          4      5       6       7        8        9         0            DEL     */
-  { KC_GRV,  KC_1,    KC_2,    KC_3,      KC_4,  KC_5,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS },
-  { KC_TAB,  KC_Q,    KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC },
-  { CTL_ESC, KC_A,    KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD(COL_QUO), KC_ENT  },
-  { KC_LSFT, KC_Z,    KC_X,    KC_C,      KC_V,  KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     CTL_ESC },
-  { KC_LCTL, _______, KC_LGUI, KC_LALT,   LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RGHT }
+/* `        1        2        3          4      5       6       7        8        9         0            DEL          */
+  { KC_GRV,  KC_1,    KC_2,    KC_3,      KC_4,  KC_5,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS      },
+  { KC_TAB,  KC_Q,    KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC      },
+  { CTL_ESC, KC_A,    KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD(COL_QUO), KC_ENT       },
+  { KC_LSFT, KC_Z,    KC_X,    KC_C,      KC_V,  KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     TD(SYN_TGGL) },
+  { KC_LCTL, _______, KC_LGUI, KC_LALT,   LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RGHT      }
 },
 
 
@@ -111,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | WS 1 | WS 2 | WS 3 | WS 4 | WS 5 | WS 6 | WS 7 |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      | SYN  |MON_L |MON_R |      |      |      |      |      |      |      |      |
+ * |      |      |MON_L |MON_R |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | TERM | TELE | SLCK |  FB  |      |      | MS L | MS D | MS U | MS R |MS LCL|MS RCL|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -121,18 +127,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-/* `        1             2        3         4        5        6        7        8        9        0        DEL    */
-  { _______, TD(WS1),      TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), _______, _______, _______, _______ },
-  { _______, TD(SYN_TGGL), MON_L,   MON_R,   _______, _______, _______, _______, _______, _______, _______, _______ },
-  { KC_F12,  TRI_TG,       TRI_SL,  TRI_FB,  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2 },
-  { _______, _______,      _______, _______, RPASTE,  _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2 },
-  { KC_MUTE, KC_MPLY,      _______, _______, _______, ROFI,    ROFI,    _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT }
+/* `        1         2        3         4        5        6        7        8        9        0        DEL    */
+  { _______, TD(WS1), TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), _______, _______, _______, _______ },
+  { _______, _______, MON_L,   MON_R,   _______, _______, _______, _______, _______, _______, _______, _______ },
+  { KC_F12,  TRI_TG,  TRI_SL,  TRI_FB,  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_BTN2 },
+  { _______, _______, _______, _______, RPASTE,  _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2 },
+  { KC_MUTE, KC_MPLY, _______, _______, _______, ROFI,    ROFI,    _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT }
 },
 
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |  {   |   }  |   =  |
+ * |      | SY:1 | SY:2 | SY:3 | SY:4 | SY:5 |      |      |      |  {   |   }  |   =  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      | ROFI |   |  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -145,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = {
 /*  `             1        2        3        4        5        6        7        8            9            0        DEL     */
-  { _______,      _______, _______, _______, _______, _______, _______, _______, _______,     KC_LCBR,     KC_RCBR, KC_EQL  },
+  { _______,      SYN_A,   SYN_B,   SYN_C,   SYN_D,   SYN_E,   _______, _______, KC_LCBR,     KC_RCBR,     KC_EQL           },
   { _______,      _______, _______, _______, _______, _______, _______, _______, _______,     _______,     ROFI,    KC_PIPE },
   { _______,      _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U,     KC_WH_R,     KC_QUOT, KC_BSLS },
   { _______,      _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______ },
