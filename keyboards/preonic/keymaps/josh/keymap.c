@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-/* `        1        2        3          4      5       6       7        8        9         0            DEL          */
+/* `        1        2        3          4      5       6       7        8        9         k0            DEL          */
   { KC_GRV,  KC_1,    KC_2,    KC_3,      KC_4,  KC_5,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS      },
   { KC_TAB,  KC_Q,    KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC      },
   { CTL_ESC, KC_A,    KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD(COL_QUO), KC_ENT       },
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = {
 /*  `             1        2        3        4        5        6        7        8            9            0        DEL     */
-  { _______,      SYN_A,   SYN_B,   SYN_C,   SYN_D,   SYN_E,   _______, _______, KC_LCBR,     KC_RCBR,     KC_EQL           },
+  { _______,      SYN_A,   SYN_B,   SYN_C,   SYN_D,   SYN_E,   _______, _______, _______,     KC_LCBR,     KC_RCBR, KC_EQL  },
   { _______,      _______, _______, _______, _______, _______, _______, _______, _______,     _______,     ROFI,    KC_PIPE },
   { _______,      _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U,     KC_WH_R,     KC_QUOT, KC_BSLS },
   { _______,      _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______ },
