@@ -71,7 +71,7 @@ enum {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [COL_QUO]    = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_B, SYN_A),
+    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_A, SYN_B),
     [LFT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
     [RGT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
     [SFT_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
