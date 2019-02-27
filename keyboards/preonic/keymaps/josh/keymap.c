@@ -44,10 +44,12 @@ enum preonic_keycodes {
 #define BRT_U       LSFT(KC_F11)                // Increase brightness
 #define BRT_F       LSFT(KC_F12)                // Highest brightness
 #define SYN_A       LALT(LSFT(KC_A))            // Synergy: Machine 1/A
-#define SYN_B       LALT(LSFT(KC_S))            // Synergy: Machine 2/B
-#define SYN_C       LALT(LSFT(KC_D))            // Synergy: Machine 3/C
-#define SYN_D       LALT(LSFT(KC_F))            // Synergy: Machine 4/D
-#define SYN_E       LALT(LSFT(KC_G))            // Synergy: Machine 5/E
+#define SYN_S       LALT(LSFT(KC_S))            // Synergy: Machine 2/S
+#define SYN_D       LALT(LSFT(KC_D))            // Synergy: Machine 3/D
+#define SYN_F       LALT(LSFT(KC_F))            // Synergy: Machine 4/F
+#define SYN_G       LALT(LSFT(KC_G))            // Synergy: Machine 5/G
+#define SYN_H       LALT(LSFT(KC_H))            // Synergy: Machine 6/H
+#define SYN_J       LALT(LSFT(KC_J))            // Synergy: Machine 7/J
 
 enum {
       COL_QUO = 0,
@@ -71,7 +73,7 @@ enum {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [COL_QUO]    = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_A, SYN_B),
+    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_A, SYN_S),
     [LFT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
     [RGT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
     [SFT_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
@@ -138,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      | SY:1 | SY:2 | SY:3 | SY:4 | SY:5 |      |      |      |  {   |   }  |   =  |
+ * |      | SY:1 | SY:2 | SY:3 | SY:4 | SY:5 | SY:6 |      |      |  {   |   }  |   =  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      | ROFI |   |  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -151,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = {
 /*  `             1        2        3        4        5        6        7        8            9            0        DEL     */
-  { _______,      SYN_A,   SYN_B,   SYN_C,   SYN_D,   SYN_E,   _______, _______, _______,     KC_LCBR,     KC_RCBR, KC_EQL  },
+  { _______,      SYN_A,   SYN_S,   SYN_D,   SYN_F,   SYN_G,   SYN_H,   SYN_J,   _______,     KC_LCBR,     KC_RCBR, KC_EQL  },
   { _______,      _______, _______, _______, _______, _______, _______, _______, _______,     _______,     ROFI,    KC_PIPE },
   { _______,      _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_U,     KC_WH_R,     KC_QUOT, KC_BSLS },
   { _______,      _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______ },
