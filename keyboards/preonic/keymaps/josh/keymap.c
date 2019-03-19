@@ -34,9 +34,10 @@ enum preonic_keycodes {
 #define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
 /* #define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift) */
 #define MEH_GRV     MEH_T(KC_GRV)               // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
-#define TRI_TG      LGUI(LSFT(KC_A))            // Trigger Telegram
-#define TRI_SL      LGUI(LSFT(KC_S))            // Trigger Slack
-#define TRI_FB      LGUI(LSFT(KC_D))            // Trigger Facebook
+#define TRI_A       LGUI(LSFT(KC_A))            // Trigger A
+#define TRI_S       LGUI(LSFT(KC_S))            // Trigger S
+#define TRI_D       LGUI(LSFT(KC_D))            // Trigger D
+#define TRI_F       LGUI(LSFT(KC_F))            // Trigger F
 #define MON_L       LGUI(KC_W)                  // Switch to left monitor
 #define MON_R       LGUI(KC_E)                  // Switch to right monitor
 #define ROFI        LGUI(KC_P)                  // Rofi
@@ -75,7 +76,7 @@ enum {
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [COL_QUO]    = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_A, SYN_S),
+    [SYN_TGGL]   = ACTION_TAP_DANCE_DOUBLE(SYN_A, SYN_G),
     [LFT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
     [RGT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
     [SFT_CAPS]   = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS),
@@ -102,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |------+------+------+------+------+-------------+------+------+------+------+------|
   * |CTLESC|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | ; "  |ENTER |
   * |------+------+------+------+------+------|------+------+------+------+------+------|
-  * |SHIFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SYN_TG|
+  * | LSFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | RSFT |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * | CTRL |      |  GUI | ALT  |LOWER |SPACE |SPACE |RAISE | LEFT | DOWN |  UP  |RIGHT |
+  * | CTRL |SYN_TG|  GUI | ALT  |LOWER |SPACE |SPACE |RAISE | LEFT | DOWN |  UP  |RIGHT |
   * `-----------------------------------------------------------------------------------'
   */
   [_QWERTY] = {
@@ -123,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |------+------+------+------+------+-------------+------+------+------+------+------|
   * |      |      |MON_L |MON_R |      |      |      |      |      |      |      |      |
   * |------+------+------+------+------+-------------+------+------+------+------+------|
-  * | TERM | TELE | SLCK |  FB  |      |      | WH L | WH D | WH U | WH R |      |      |
+  * | TERM | TR-A | TR-S | TR-D | TR-F |      | WH L | WH D | WH U | WH R |      |      |
   * |------+------+------+------+------+------|------+------+------+------+------+------|
   * |      |      |      |      |RPAST |      |      |      |      |      |      |      |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -134,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*  `        1        2        3        4        5        6        7        8        9        0        DEL    */
     { _______, TD(WS1), TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), _______, _______, _______, _______ },
     { _______, _______, MON_L,   MON_R,   _______, _______, _______, _______, _______, _______, _______, _______ },
-    { KC_F12,  TRI_TG,  TRI_SL,  TRI_FB,  _______, _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, _______ },
+    { KC_F12,  TRI_A,   TRI_S,   TRI_D,   TRI_F,   _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, _______ },
     { _______, _______, _______, _______, RPASTE,  _______, _______, _______, _______, _______, _______, _______ },
     { KC_MUTE, KC_MPLY, _______, _______, _______, ROFI,    ROFI,    _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT }
   },
