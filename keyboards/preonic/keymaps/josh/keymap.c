@@ -41,6 +41,8 @@ enum preonic_keycodes {
 #define MON_L       LGUI(KC_W)                  // Switch to left monitor
 #define MON_R       LGUI(KC_E)                  // Switch to right monitor
 #define ROFI        LGUI(KC_P)                  // Rofi
+#define ROFI_L      LGUI(KC_O)                  // Rofi Launcher
+#define ROFI_A      LGUI(LSFT(KC_P))            // Rofi Alternate
 #define RPASTE      LGUI(KC_V)                  // Rofi paste
 #define BRT_O       LSFT(KC_F9)                 // Lowest Brightness
 #define BRT_D       LSFT(KC_F10)                // Decrease brightness
@@ -109,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |------+------+------+------+------+------|------+------+------+------+------+------|
   * | LSFT |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | RSFT |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * | CTRL |SYN_TG|  GUI | ALT  |LOWER |SPACE |SPACE |RAISE | LEFT | DOWN |  UP  |RIGHT |
+  * | CTRL |SYN_TG|  ALT | GUI  |LOWER |SPACE |SPACE |RAISE | LEFT | DOWN |  UP  |RIGHT |
   * `-----------------------------------------------------------------------------------'
   */
   [_QWERTY] = {
@@ -124,9 +126,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Raise
   * ,-----------------------------------------------------------------------------------.
-  * |      | WS 1 | WS 2 | WS 3 | WS 4 | WS 5 | WS 6 | WS 7 |      |      |      |      |
+  * |      | WS 1 | WS 2 | WS 3 | WS 4 | WS 5 | WS 6 | WS 7 |      |  [   |  ]   |      |
   * |------+------+------+------+------+-------------+------+------+------+------+------|
-  * |      |      |MON_L |MON_R |      |      |      |      |      |      |      | DEL  |
+  * |      |      |MON_L |MON_R |      |      |      |      |      |      |ROFI_A| DEL  |
   * |------+------+------+------+------+-------------+------+------+------+------+------|
   * | TERM | TR-A | TR-S | TR-D | TR-F |      | WH L | WH D | WH U | WH R |      |      |
   * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -137,8 +139,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_RAISE] = {
   /*  `        1        2        3        4        5        6        7        8        9        0        DEL    */
-    { _______, TD(WS1), TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), TD(WS8), _______, _______, _______ },
-    { _______, _______, MON_L,   MON_R,   _______, _______, _______, _______, _______, _______, _______, KC_DEL  },
+    { _______, TD(WS1), TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), TD(WS8), KC_LBRC, KC_RCBR, _______ },
+    { _______, _______, MON_L,   MON_R,   _______, _______, _______, _______, _______, _______, ROFI_A,  KC_DEL  },
     { KC_F12,  TRI_A,   TRI_S,   TRI_D,   TRI_F,   _______, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, _______, _______ },
     { _______, _______, _______, _______, RPASTE,  _______, _______, _______, _______, _______, _______, _______ },
     { KC_MUTE, KC_MPLY, _______, _______, _______, ROFI,    ROFI,    _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT }
@@ -147,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Lower
   * ,-----------------------------------------------------------------------------------.
-  * |      | SY:1 | SY:2 | SY:3 | SY:4 | SY:5 | SY:6 |      |      |  {   |   }  |   =  |
+  * |      | SY:1 | SY:2 | SY:3 | SY:4 | SY:5 | SY:6 | SY:7 | SY:8 |  {   |   }  |   =  |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * |      |      |      |      |      |      |      |      |      |      | ROFI |   |  |
+  * |      |      |      |      |      |      |      |      |      |ROFI_L| ROFI |   |  |
   * |------+------+------+------+------+-------------+------+------+------+------+------|
   * |      | BTN1 | BTN2 | MS 0 | MS 1 | MS 2 | MS L | MS D | MS U | MS R |  '   | | \  |
   * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -161,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = {
   /*  `              1        2        3        4        5        6        7        8            9            0        DEL     */
     { _______,       SYN_A,   SYN_S,   SYN_D,   SYN_F,   SYN_G,   SYN_H,   SYN_J,   SYN_K,       KC_LCBR,     KC_RCBR, KC_EQL  },
-    { _______,       _______, _______, _______, _______, _______, _______, _______, _______,     _______,     ROFI,    KC_PIPE },
+    { _______,       _______, _______, _______, _______, _______, _______, _______, _______,     ROFI_L,      ROFI,    KC_PIPE },
     { _______,       KC_BTN1, KC_BTN2, KC_ACL0, KC_ACL1, KC_ACL2, KC_MS_L, KC_MS_D, KC_MS_U,     KC_MS_R,     KC_QUOT, KC_BSLS },
     { _______,       _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______ },
     { LALT(KC_BSPC), SYN_A,   _______, _______, _______, ROFI,    ROFI,    _______, _______,     _______,     _______, _______ }
