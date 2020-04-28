@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { KC_TAB,  KC_Q,         KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC },
     { CTL_ESC, KC_A,         KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD(COL_QUO), KC_ENT  },
     { KC_LSPO, KC_Z,         KC_X,    KC_C,      KC_V,  KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_RSPC },
-    { KC_LCTL, TD(SYN_TGGL), KC_LGUI, KC_LALT,   LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RGHT }
+    { KC_LCTL, TD(SYN_TGGL), KC_LALT, KC_LGUI,   LOWER, KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,       KC_RGHT }
   },
 
 
@@ -155,9 +155,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |------+------+------+------+------+-------------+------+------+------+------+------|
   * |      | BTN1 | BTN2 | MS 0 | MS 1 | MS 2 | MS L | MS D | MS U | MS R |  '   | | \  |
   * |------+------+------+------+------+------|------+------+------+------+------+------|
-  * |      |      |      |      |      |      |      |      | [ {  |  ] } |  \   |
+  * |      |      |      |      |      |      |      |      | [ {  |  ] } |  \   |      |
   * |------+------+------+------+------+------+------+------+------+------+------+------|
-  * | LOCK |      |      |      |LOWER | ROFI | ROFI |RAISE |      |      |      |      |
+  * | LOCK |      |      |      |LOWER | ROFI | ROFI |RAISE | HOME | PGDN | PGUP | END  |
   * `-----------------------------------------------------------------------------------'
   */
   [_LOWER] = {
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { _______,       _______, _______, _______, _______, _______, _______, _______, _______,     ROFI_L,      ROFI,    KC_PIPE },
     { _______,       KC_BTN1, KC_BTN2, KC_ACL0, KC_ACL1, KC_ACL2, KC_MS_L, KC_MS_D, KC_MS_U,     KC_MS_R,     KC_QUOT, KC_BSLS },
     { _______,       _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______ },
-    { LALT(KC_BSPC), SYN_A,   _______, _______, _______, ROFI,    ROFI,    _______, _______,     _______,     _______, _______ }
+    { LALT(KC_BSPC), SYN_A,   _______, _______, _______, ROFI,    ROFI,    _______, KC_HOME,     KC_PGDN,     KC_PGUP, KC_END  }
   },
 
 
