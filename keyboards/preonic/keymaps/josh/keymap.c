@@ -14,111 +14,116 @@ enum preonic_keycodes {
 };
 
 
-// core macros
-#define FN          MO(_FNS)                    // Fn layer
-#define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
-#define MEH_GRV     MEH_T(KC_GRV)               // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
+// macros
+#define MC_FNLR     MO(_FNS)                    // fn layer
+#define MC_ESCT     CTL_T(KC_ESC)               // tap for esc; hold for ctrl
+#define MC_ROFI     LGUI(KC_P)                  // rofi
+#define MC_RFIW     LGUI(KC_G)                  // rofi: windows
+#define MC_BAR1     LALT(LSFT(KC_A))            // barrier: 1/A
+#define MC_BAR2     LALT(LSFT(KC_S))            // barrier: 2/S
+#define MC_BAR3     LALT(LSFT(KC_D))            // barrier: 3/D
+#define MC_BAR4     LALT(LSFT(KC_F))            // barrier: 4/F
+#define MC_BAR5     LALT(LSFT(KC_G))            // barrier: 5/G
+#define MC_BAR6     LALT(LSFT(KC_H))            // barrier: 6/H
+#define MC_BAR7     LALT(LSFT(KC_J))            // barrier: 7/J
+#define MC_BAR8     LALT(LSFT(KC_K))            // barrier: 8/K
+#define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
+#define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
 
 
-// synergy/barrier macros
-#define SYN_1       LALT(LSFT(KC_A))            // Synergy: Machine 1/A
-#define SYN_2       LALT(LSFT(KC_S))            // Synergy: Machine 2/S
-#define SYN_3       LALT(LSFT(KC_D))            // Synergy: Machine 3/D
-#define SYN_4       LALT(LSFT(KC_F))            // Synergy: Machine 4/F
-#define SYN_5       LALT(LSFT(KC_G))            // Synergy: Machine 5/G
-#define SYN_6       LALT(LSFT(KC_H))            // Synergy: Machine 6/H
-#define SYN_7       LALT(LSFT(KC_J))            // Synergy: Machine 7/J
-#define SYN_8       LALT(LSFT(KC_K))            // Synergy: Machine 8/K
+// tap dance helpers
+#define TD_SCLN     TD(TD_SCLN_QUOT)
+#define TD_LBRC     TD(TD_LBRC_LCBR)
+#define TD_RBRC     TD(TD_RBRC_RCBR)
+#define TD_COMM     TD(TD_COMM_MINS)
+#define TD_WSP1     TD(TD_KC1_BAR1)
+#define TD_WSP2     TD(TD_KC2_BAR2)
+#define TD_WSP3     TD(TD_KC3_BAR3)
+#define TD_WSP4     TD(TD_KC4_BAR4)
+#define TD_WSP5     TD(TD_KC5_BAR5)
+#define TD_WSP6     TD(TD_KC6_BAR6)
+#define TD_WSP7     TD(TD_KC7_BAR7)
+#define TD_WSP8     TD(TD_KC8_BAR8)
 
 
-// custom macros
-#define ROFI        LGUI(KC_P)                  // Rofi
-#define ROFI_W      LGUI(KC_G)                  // Rofi (windows)
-#define CHAT        LGUI(LSFT(KC_ENT))          // Chat
-#define TRI_A       LGUI(KC_A)                  // xmonad: apps menu
-#define TRI_Z       LGUI(KC_Z)                  // xmonad: volume menu
-
-#define BRT_D       LSFT(KC_F10)                // Decrease brightness
-#define BRT_U       LSFT(KC_F11)                // Increase brightness
-
-
+// tap dance
 enum {
-      COL_QUO = 0,
-      LFT_BRK,
-      RGT_BRK,
-
-      WS1,
-      WS2,
-      WS3,
-      WS4,
-      WS5,
-      WS6,
-      WS7,
-      WS8
+  TD_SCLN_QUOT,
+  TD_LBRC_LCBR,
+  TD_RBRC_RCBR,
+  TD_COMM_MINS,
+  TD_KC1_BAR1,
+  TD_KC2_BAR2,
+  TD_KC3_BAR3,
+  TD_KC4_BAR4,
+  TD_KC5_BAR5,
+  TD_KC6_BAR6,
+  TD_KC7_BAR7,
+  TD_KC8_BAR8
 };
 
-
-//Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [COL_QUO]    = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-    [LFT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
-    [RGT_BRK]    = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+  [TD_SCLN_QUOT]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+  [TD_LBRC_LCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
+  [TD_RBRC_RCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+  [TD_COMM_MINS]  = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_MINS),
 
-    [WS1]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_1), SYN_1),
-    [WS2]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_2), SYN_2),
-    [WS3]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_3), SYN_3),
-    [WS4]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_4), SYN_4),
-    [WS5]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_5), SYN_5),
-    [WS6]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), SYN_6),
-    [WS7]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_7), SYN_7),
-    [WS8]       = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), SYN_8)
+  [TD_KC1_BAR1]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_1), MC_BAR1),
+  [TD_KC2_BAR2]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_2), MC_BAR2),
+  [TD_KC3_BAR3]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_3), MC_BAR3),
+  [TD_KC4_BAR4]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_4), MC_BAR4),
+  [TD_KC5_BAR5]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_5), MC_BAR5),
+  [TD_KC6_BAR6]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), MC_BAR6),
+  [TD_KC7_BAR7]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_7), MC_BAR7),
+  [TD_KC8_BAR8]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), MC_BAR8)
 };
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* Qwerty
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+  * │   ~   │   !   │   @   │   #   │   $   │   %   │   ^   │   &   │   *   │   (   │   )   │   _   │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │   `   │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │   9   │   0   │  - _  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │   `   │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │   9   │   0   │   -   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │  TAB  │   Q   │   W   │   E   │   R   │   T   │   Y   │   U   │   I   │   O   │   P   │ BCSP  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │   Q   │   W   │   E   │   R   │   T   │   Y   │   U   │   I   │   O   │   P   │       │
+  * │  TAB  │       │       │       │       │       │       │       │       │       │       │ BCSP  │
+  * │       │   q   │   w   │   e   │   r   │   t   │   y   │   u   │   i   │   o   │   p   │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │  CTRL │       │       │       │       │       │       │       │       │       │   ;   │       │
-  * │  ESC  │   A   │   S   │   D   │   F   │   G   │   H   │   J   │   K   │   L   │   "   │  RET  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │ ESC   │   A   │   S   │   D   │   F   │   G   │   H   │   J   │   K   │   L   │ :  "  │       │
+  * │ CTRL  │       │       │       │       │       │       │       │       │       │       │  RET  │
+  * │       │   a   │   s   │   d   │   f   │   g   │   h   │   j   │   k   │   l   │ ;  '  │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │ SHIFT │   Z   │   X   │   C   │   V   │   B   │   N   │   M   │ <  _  │   >   │   ?   │ SHIFT │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │ SHIFT │   Z   │   X   │   C   │   V   │   B   │   N   │   M   │   ,   │   .   │   /   │ SHIFT │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │   )   │   z   │   x   │   c   │   v   │   b   │   n   │   m   │ ,  -  │   .   │   /   │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │ CTRL  │       │  ALT  │  GUI  │ LOWER │     SPACE     │ RAISE │  FN   │       │       │       │
+  * │ CTRL  │       │  ALT  │ SUPER │ LOWER │     SPACE     │ RAISE │  FN   │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
   */
 
   [_QWERTY] = LAYOUT_preonic_grid(
-    KC_GRV,  KC_1,    KC_2,    KC_3,      KC_4,  KC_5,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,        KC_MINS,
-    KC_TAB,  KC_Q,    KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC,
-    CTL_ESC, KC_A,    KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD(COL_QUO), KC_ENT ,
-    KC_LSPO, KC_Z,    KC_X,    KC_C,      KC_V,  KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_RSPC,
-    KC_LCTL, _______, KC_LALT, KC_LGUI,   LOWER, KC_SPC, KC_SPC, RAISE,   FN,      _______, _______,     _______
+    KC_GRV,  KC_1,    KC_2,    KC_3,      KC_4,  KC_5,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+    KC_TAB,  KC_Q,    KC_W,    KC_E,      KC_R,  KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    MC_ESCT, KC_A,    KC_S,    KC_D,      KC_F,  KC_G,   KC_H,   KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT ,
+    KC_LSPO, KC_Z,    KC_X,    KC_C,      KC_V,  KC_B,   KC_N,   KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+    KC_LCTL, _______, KC_LALT, KC_LGUI,   LOWER, KC_SPC, KC_SPC, RAISE,   MC_FNLR, _______, _______, _______
   ),
 
 
 
  /* Raise
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │       │ WS 1  │ WS 2  │ WS 3  │ WS 4  │ WS 5  │ WS 6  │ WS 7  │ WS 8  │       │       │       │
-  * │       │ SYN 1 │ SYN 2 │ SYN 3 │ SYN 4 │ SYN 5 │ SYN 6 │ SYN 7 │ SYN 8 │   [   │   ]   │  = +  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │   ~   │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │   {   │   }   │   +   │
+  * │       │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │       │       │       │
+  * │   `   │       │       │       │       │       │       │       │       │   [   │   ]   │   =   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       |       │       │       │       │       │       │       │       │ DEL   │
+  * │       │       │       |       │       │       │       │       │       │       │       │  DEL  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -136,56 +141,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
   [_RAISE] = LAYOUT_preonic_grid(
-    _______, TD(WS1), TD(WS2), TD(WS3), TD(WS4), TD(WS5), TD(WS6), TD(WS7), TD(WS8), KC_LBRC, KC_RCBR,  KC_EQL,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, KC_DEL ,
-    KC_F12,  TRI_A,   _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
-    _______, TRI_Z,   _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
-    _______, _______, _______, _______, LOWER,   ROFI_W,  ROFI_W,  RAISE,   FN,       _______, _______, _______
+
+    KC_GRV,  TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, KC_LBRC, KC_RCBR, KC_EQL,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL ,
+    KC_F12,  MC_XAPP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, MC_XMED, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, LOWER,   MC_RFIW, MC_RFIW, RAISE,   MC_FNLR, _______, _______, _______
   ),
 
 
 
   /* Lower
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │ SYN 1 │ SYN 2 │ SYN 3 │ SYN 4 │ SYN 5 │ SYN 6 │ SYN 7 │ SYN 8 │   {   │   }   │  - _  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │   _   │
+  * │       │       │       │       │       │       │       │       │       │   {   │   }   │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │   -   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │ LEFT  │ DOWN  │   UP  │ RIGHT │   '   │  | \  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │   "   │   |   │
+  * │       │       │       │       │       │       │ LEFT  │ DOWN  │   UP  │ RIGHT │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │   '   │   \   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │   {   │   }   │   |   │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │   [   │   ]   │   \   │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │ LOWER │     ROFI      │ RAISE │       │       │       │       │
+  * │       │       │       │       │ LOWER │     ROFI      │ RAISE │  FN   │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
   */
 
   [_LOWER] = LAYOUT_preonic_grid(
-    _______, SYN_1,   SYN_2,   SYN_3,   SYN_4,   SYN_5,   SYN_6,   SYN_7,   SYN_8,       KC_LCBR,     KC_RCBR, KC_MINS,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______,     _______,     _______, _______,
-    CHAT,    _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,       KC_RGHT,     KC_QUOT, KC_BSLS,
-    _______, _______, _______, _______, _______, _______, _______, _______, TD(LFT_BRK), TD(RGT_BRK), KC_BSLS, _______,
-    _______, _______, _______, _______, LOWER,   ROFI,    ROFI,    RAISE,   FN,          _______,     _______, _______
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_MINS,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT, KC_BSLS,
+    _______, _______, _______, _______, _______, _______, _______, _______, TD_LBRC, TD_RBRC, KC_BSLS, _______,
+    _______, _______, _______, _______, LOWER,   MC_ROFI, MC_ROFI, RAISE,   MC_FNLR, _______, _______, _______
   ),
 
 
- /* Fns
+ /* Fn
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │ BAR 1 │ BAR 2 │ BAR 3 │ BAR 4 │ BAR 5 │ BAR 6 │ BAR 7 │ BAR 8 │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │ RESET │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │ PRINT │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -197,17 +203,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │ LOWER │               │ RAISE │  FN   │       │       │       │
+  * │       │       │       │       │ LOWER │     RESET     │ RAISE │  FN   │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
   */
 
   [_FNS] = LAYOUT_preonic_grid(
+    _______, MC_BAR1, MC_BAR2, MC_BAR3, MC_BAR4, MC_BAR5, MC_BAR6, MC_BAR7, MC_BAR8, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, LOWER,   _______, _______, RAISE,   FN,      _______, _______, _______
+    _______, _______, _______, _______, LOWER,   RESET,   RESET,   RAISE,   MC_FNLR, _______, _______, _______
   ),
 
 
@@ -218,11 +224,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │ RESET │       │       │       │       │       │       │       │       │ PRINT │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │ CAPS  │       │       │       │       │       │       │BRT DN │BRT UP │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -237,10 +243,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_preonic_grid(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 ,
-    _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______,
-    KC_CAPS, _______, _______, _______, _______, _______, _______, KC_BRID, KC_BRIU, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, LOWER,   _______, _______, RAISE,   FN,      _______, _______, _______
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, LOWER,   _______, _______, RAISE,   MC_FNLR, _______, _______, _______
   )
 
 };
