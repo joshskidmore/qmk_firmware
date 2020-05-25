@@ -4,7 +4,7 @@
 #define _QWERTY 0
 #define _LOWER 3
 #define _RAISE 4
-#define _FNS 6
+#define _FN 6
 #define _ADJUST 16
 
 enum planck_keycodes {
@@ -15,10 +15,11 @@ enum planck_keycodes {
 
 
 // macros
-#define MC_FNLR     MO(_FNS)                    // fn layer
+#define MC_FNLR     MO(_FN)                     // fn layer
 #define MC_ESCT     CTL_T(KC_ESC)               // tap for esc; hold for ctrl
 #define MC_ROFI     LGUI(KC_P)                  // rofi
 #define MC_RFIW     LGUI(KC_G)                  // rofi: windows
+#define MC_RFIM     LGUI(KC_O)                  // rofi: menu
 #define MC_BAR1     LALT(LSFT(KC_A))            // barrier: 1/A
 #define MC_BAR2     LALT(LSFT(KC_S))            // barrier: 2/S
 #define MC_BAR3     LALT(LSFT(KC_D))            // barrier: 3/D
@@ -29,6 +30,7 @@ enum planck_keycodes {
 #define MC_BAR8     LALT(LSFT(KC_K))            // barrier: 8/K
 #define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
 #define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
+#define MC_XMKL     LGUI(LSFT(LCTL(KC_Q)))      // xmonad: kill
 
 
 // tap dance helpers
@@ -36,6 +38,10 @@ enum planck_keycodes {
 #define TD_LBRC     TD(TD_LBRC_LCBR)
 #define TD_RBRC     TD(TD_RBRC_RCBR)
 #define TD_COMM     TD(TD_COMM_MINS)
+#define TD_O        TD(TD_O_LBRC)
+#define TD_P        TD(TD_P_RBRC)
+#define TD_LBRC     TD(TD_LBRC_LCBR)
+#define TD_RBRC     TD(TD_RBRC_RCBR)
 #define TD_WSP1     TD(TD_KC1_BAR1)
 #define TD_WSP2     TD(TD_KC2_BAR2)
 #define TD_WSP3     TD(TD_KC3_BAR3)
@@ -52,7 +58,6 @@ enum {
   TD_LBRC_LCBR,
   TD_RBRC_RCBR,
   TD_COMM_MINS,
-
   TD_KC1_BAR1,
   TD_KC2_BAR2,
   TD_KC3_BAR3,
@@ -68,7 +73,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_LBRC_LCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
   [TD_RBRC_RCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
   [TD_COMM_MINS]  = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_MINS),
-
   [TD_KC1_BAR1]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_1), LGUI(LSFT(KC_1))),
   [TD_KC2_BAR2]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_2), LGUI(LSFT(KC_2))),
   [TD_KC3_BAR3]   = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_3), LGUI(LSFT(KC_3))),
@@ -114,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* Raise
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │   ~   │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │   {   │   }   │   +   │
+  * │   ~   │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │ {  {  │ }  }  │   _   │
   * │       │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │       │       │       │
-  * │   `   │       │       │       │       │       │       │       │       │   [   │   ]   │   =   │
+  * │   `   │       │       │       │       │       │       │       │       │ [  {  │ ]  }  │   -   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │ TERM  │ APPS  │       │       │       │       │       │       │       │       │       │  DEL  │
@@ -127,33 +131,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │ LOWER │   ROFI WIN    │ RAISE │  FN   │       │       │       │
+  * │       │       │       │       │ LOWER │   ROFI MENU   │ RAISE │  FN   │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
   */
 
   [_RAISE] = LAYOUT_planck_grid(
-    KC_GRV,  TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, KC_LBRC, KC_RCBR, KC_EQL,
+    KC_GRV,  TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, TD_LBRC, TD_RBRC, KC_MINS,
     KC_F12,  MC_XAPP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, MC_XMED, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, LOWER,   MC_RFIW, MC_RFIW, RAISE,   MC_FNLR, _______, _______, _______
+    _______, _______, _______, _______, LOWER,   MC_RFIM, MC_RFIM, RAISE,   MC_FNLR, _______, _______, _______
   ),
 
 
 
  /* Lower
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │       │   !   │   @   │   #   │   $   │   %   │   ^   │   &   │   *   │   (   │   )   │   _   │
+  * │       │   !   │   @   │   #   │   $   │   %   │   ^   │   &   │   *   │   (   │   )   │   +   │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │   9   │   0   │   -   │
+  * │       │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │   9   │   0   │   =   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │   "   │   |   │
   * │       │       │       │       │       │       │ LEFT  │ DOWN  │   UP  │ RIGHT │       │       │
   * │       │       │       │       │       │       │       │       │       │       │   '   │   \   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │   {   │   }   │   |   │       │
+  * │       │       │       │       │       │       │       │       │ {  {  │ }  }  │   |   │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │   [   │   ]   │   \   │       │
+  * │       │       │       │       │       │       │       │       │ [  {  │ ]  }  │   \   │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
   * │       │       │       │       │ LOWER │     ROFI      │ RAISE │  FN   │       │       │       │
@@ -162,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
   [_LOWER] = LAYOUT_planck_grid(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
     _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT, KC_BSLS,
     _______, _______, _______, _______, _______, _______, _______, _______, TD_LBRC, TD_RBRC, KC_BSLS, _______,
     _______, _______, _______, _______, LOWER,   MC_ROFI, MC_ROFI, RAISE,   MC_FNLR, _______, _______, _______
@@ -185,16 +189,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │ LOWER │     RESET     │ RAISE │  FN   │       │       │       │
+  * │       │       │       │       │ LOWER │   ROFI WIN    │ RAISE │  FN   │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
   */
 
-  [_FNS] = LAYOUT_planck_grid(
+  [_FN] = LAYOUT_planck_grid(
     _______, MC_BAR1, MC_BAR2, MC_BAR3, MC_BAR4, MC_BAR5, MC_BAR6, MC_BAR7, MC_BAR8, _______, KC_PSCR, _______,
     _______, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, KC_MPLY,
     KC_BRID, _______, _______, _______, _______, _______, _______, KC_MUTE, _______, _______, _______, KC_BRIU,
-    _______, _______, _______, _______, LOWER,   RESET,   RESET,   RAISE,   MC_FNLR, _______, _______, _______
+    _______, _______, _______, _______, LOWER,   MC_RFIW, MC_RFIW, RAISE,   MC_FNLR, _______, _______, _______
   ),
 
 
@@ -213,8 +217,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │ LOWER │               │ RAISE │  FN   │       │       │       │
+  * │       │  XM   │       │       │       │               │       │       │       │       │       │
+  * │ RESET │ KILL  │       │       │ LOWER │               │ RAISE │  FN   │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
   */
@@ -223,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, LOWER,   _______, _______, RAISE,   MC_FNLR, _______, _______, _______
+    RESET,   MC_XMKL, _______, _______, LOWER,   _______, _______, RAISE,   MC_FNLR, _______, _______, _______
   )
 
 };
