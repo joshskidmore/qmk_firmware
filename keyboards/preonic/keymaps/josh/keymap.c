@@ -16,6 +16,8 @@ enum preonic_keycodes {
 
 
 // macros
+#define MC_LOWR     MO(_LOWER)                  // lower layer
+#define MC_RAIS     MO(_RAISE)                  // raise layer
 #define MC_FNLR     MO(_FN)                     // fn layer
 #define MC_OSLR     OSL(_OSL)                   // osl layer
 #define MC_AJLR     MO(_ADJUST)                 // adjust layer
@@ -60,10 +62,9 @@ enum preonic_keycodes {
 
 
 // layer toggle helpers
-#define LT_LOWR     LT(_LOWER, KC_PGDN)
 #define LT_SPC      LT(_FN, KC_SPC)
-#define LT_RAIS     LT(_RAISE, KC_PGUP)
-#define LT_AJST     LT(_ADJUST, KC_TAB)
+//#define LT_LOWR     LT(_LOWER, KC_PGDN)
+//#define LT_RAIS     LT(_RAISE, KC_PGUP)
 
 
 // tap dance
@@ -123,9 +124,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │   (   │   z   │   x   │   c   │   v   │   b   │   n   │   m   │ ,  -  │   .   │   /   │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │ RAISE │      FN       │ RAISE │       │       │       │       │
-  * │ CTRL  │ AJST  │  ALT  │ SUPER │       │               │       │       │       │       │ HELP  │
-  * │       │       │       │       │ PG DN │     SPACE     │ PG UP │       │       │       │       │
+  * │       │       │       │       │       │      FN       │       │       │       │       │       │
+  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │       │       │       │ HELP  │
+  * │       │       │       │       │       │     SPACE     │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Qwerty End */
 
@@ -134,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    KC_LCTL, MC_AJLR, KC_LALT, KC_LGUI, LT_LOWR, LT_SPC,  LT_SPC,  LT_RAIS, _______, _______, _______, MC_HQWE
+    KC_LCTL, MC_AJLR, KC_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, _______, _______, _______, MC_HQWE
   ),
 
 
