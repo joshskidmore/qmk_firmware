@@ -36,6 +36,7 @@ enum planck_keycodes {
 #define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
 #define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
 #define MC_XMKL     LGUI(LSFT(LCTL(KC_Q)))      // xmonad: kill
+#define MC_XMSW     LGUI(KC_TAB)                // xmonad: switch screen
 #define MC_HQWE     LGUI(LCTL(KC_F1))           // roficheat: qwerty
 #define MC_HRAI     LGUI(LCTL(KC_F2))           // roficheat: raise
 #define MC_HLOW     LGUI(LCTL(KC_F3))           // roficheat: lower
@@ -200,8 +201,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │ START │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │       │ PRINT │   END │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │       │
+  * │ XMOND │       │       │       │       │       │       │       │       │       │       │       │
+  * │ SW SCR│       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │ TERM  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -216,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN] = LAYOUT_planck_grid(
     TD_CIRC, TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, _______, KC_PSCR, TD_DLR,
-    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+    MC_XMSW, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_F12,
     KC_LCBR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RCBR,
     _______, _______, _______, _______, MC_RFIW, _______, _______, MC_RFIW, _______, _______, _______, MC_HFN
   ),
