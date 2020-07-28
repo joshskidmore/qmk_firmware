@@ -37,6 +37,7 @@ enum preonic_keycodes {
 #define MC_BAR0     LALT(LSFT(KC_0))            // barrier: 0
 #define MC_BLFT     LALT(LSFT(KC_LEFT))         // barrier: prev
 #define MC_BRGT     LALT(LSFT(KC_RGHT))         // barrier: next
+#define MC_RBAR     LGUI(LCTL(KC_F9))           // rofi-barrier.sh
 #define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
 #define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
 #define MC_XMKL     LGUI(LSFT(LCTL(KC_Q)))      // xmonad: kill
@@ -262,8 +263,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │ ROFI  │       │
+  * │       │       │       │       │       │       │       │       │       │       │ BARRI │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
@@ -276,7 +277,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MC_BLFT, MC_BAR1, MC_BAR2, MC_BAR3, MC_BAR4, MC_BAR5, MC_BAR6, MC_BAR7, MC_BAR8, MC_BAR9, MC_BAR0, MC_BRGT,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MC_RBAR, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MC_HBAR
   ),
 
