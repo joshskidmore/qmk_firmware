@@ -48,6 +48,7 @@ enum planck_keycodes {
 #define MC_HFN      LGUI(LCTL(KC_F4))           // roficheat: fn
 #define MC_HBAR     LGUI(LCTL(KC_F5))           // roficheat: barrier
 #define MC_HADJ     LGUI(LCTL(KC_F6))           // roficheat: adjust
+#define MC_HIDE     LGUI(KC_ESC)                // xmonad: hide window
 
 
 // tap dance helpers
@@ -207,8 +208,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │ START │       │       │       │       │       │       │       │       │       │       │   END │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │ TERM  │
+  * │ HIDE  │       │       │       │       │       │       │       │       │       │       │       │
+  * │ WIN   │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │ TERM  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -223,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN] = LAYOUT_planck_grid(
     TD_CIRC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TD_DLR,
-    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_F12,
+    MC_HIDE, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_F12,
     KC_LCBR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RCBR,
     _______, _______, _______, _______, _______, _______, _______, MC_RFIM, _______, _______, _______, MC_HFN
   ),

@@ -48,6 +48,7 @@ enum preonic_keycodes {
 #define MC_HFN      LGUI(LCTL(KC_F4))           // roficheat: fn
 #define MC_HBAR     LGUI(LCTL(KC_F5))           // roficheat: barrier
 #define MC_HADJ     LGUI(LCTL(KC_F6))           // roficheat: adjust
+#define MC_HIDE     LGUI(KC_ESC)                // xmonad: hide window
 
 
 // tap dance helpers
@@ -132,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │   (   │   z   │   x   │   c   │   v   │   b   │   n   │   m   │ ,  -  │   .   │   /   │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │      FN       │       │       │       │       │       │
-  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │       │ BARRI │       │ HELP  │
+  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │ BARRI │       │       │ HELP  │
   * │       │       │       │       │       │     SPACE     │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Qwerty End */
@@ -142,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    KC_LCTL, MC_AJLR, KC_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, _______, MC_BRLR, _______, MC_HQWE
+    KC_LCTL, MC_AJLR, KC_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, _______, _______, MC_HQWE
   ),
 
 
@@ -225,8 +226,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │ TERM  │
+  * │ HIDE  │       │       │       │       │       │       │       │       │       │       │       │
+  * │ WIN   │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │ TERM  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -242,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = LAYOUT_preonic_grid(
     TD_CIRC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TD_DLR,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_F12,
+    MC_HIDE, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_F12,
     KC_LCBR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RCBR,
     _______, _______, _______, _______, _______, _______, _______, MC_RFIM, _______, _______, _______, MC_HFN
   ),
