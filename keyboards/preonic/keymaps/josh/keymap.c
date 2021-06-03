@@ -41,7 +41,7 @@ enum preonic_keycodes {
 #define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
 #define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
 #define MC_XMKL     LGUI(LSFT(LCTL(KC_Q)))      // xmonad: kill
-#define MC_XMSW     LGUI(KC_TAB)                // xmonad: switch screen
+#define MC_XMSW     LGUI(KC_DOWN)               // xmonad: switch screen
 #define MC_HQWE     LGUI(LCTL(KC_F1))           // roficheat: qwerty
 #define MC_HRAI     LGUI(LCTL(KC_F2))           // roficheat: raise
 #define MC_HLOW     LGUI(LCTL(KC_F3))           // roficheat: lower
@@ -150,12 +150,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* Raise
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │ XOND  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │       │       │   _   │
-  * │ SW SCR│   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │   _   │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │   -   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       |       │       │       │       │       │       │       │ PRINT │  DEL  │
+  * │ XMON  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │       │       │       │
+  * │ SW SCR│   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │       │ PRINT │  DEL  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -173,8 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     Raise End */
 
   [_RAISE] = LAYOUT_preonic_grid(
-    MC_XMSW, TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, _______, _______, KC_MINS,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_DEL ,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS,
+    MC_XMSW, TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, _______, KC_PSCR, KC_DEL ,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     KC_LBRC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RBRC,
     _______, _______, _______, _______, _______, MC_RFIW, MC_RFIW, _______, _______, _______, _______, MC_HRAI
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │   `   │   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │   9   │   0   │   =   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │   "   │   |   │
-  * │       │       │       │       │       │       │ LEFT  │ DOWN  │   UP  │ RIGHT │       │       │
+  * │       │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │       │
   * │       │       │       │       │       │       │       │       │       │       │   '   │   \   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │ SHIFT │       │       │       │       │       │       │       │ {  {  │ }  }  │   |   │ SHIFT │
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_preonic_grid(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_EQL,
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
-    _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_QUOT, KC_BSLS,
+    _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_QUOT, KC_BSLS,
     KC_LSPO, _______, _______, _______, _______, _______, _______, _______, TD_LBRC, TD_RBRC, KC_BSLS, KC_RSPC,
     _______, _______, _______, _______, _______, MC_ROFI, MC_ROFI, _______, _______, _______, _______, MC_HLOW
   ),
@@ -227,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │ HIDE  │       │       │       │       │       │       │       │       │       │       │       │
-  * │ WIN   │       │       │       │       │       │ HOME  │ PG DN │ PG UP │  END  │       │       │
+  * │ WIN   │       │       │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -243,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = LAYOUT_preonic_grid(
     TD_CIRC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TD_DLR,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    MC_HIDE, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+    MC_HIDE, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
     KC_LCBR, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RCBR,
     _______, _______, _______, _______, _______, _______, _______, MC_RFIM, _______, _______, _______, MC_HFN
   ),
