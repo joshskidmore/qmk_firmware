@@ -7,6 +7,8 @@
 #define _FN 6
 #define _BARRIER 7
 #define _ADJUST 16
+#define _LGUI 18
+#define _LALT 19
 
 enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
@@ -49,6 +51,9 @@ enum preonic_keycodes {
 #define MC_HBAR     LGUI(LCTL(KC_F5))           // roficheat: barrier
 #define MC_HADJ     LGUI(LCTL(KC_F6))           // roficheat: adjust
 #define MC_HIDE     LGUI(KC_ESC)                // xmonad: hide window
+#define MC_TERM     LGUI(KC_ENT)                // term
+#define MC_CHAT     LGUI(KC_DOT)                // chat
+#define MC_TTGL     LGUI(LSFT(KC_T))            // touchpad toggle
 
 
 // tap dance helpers
@@ -66,6 +71,8 @@ enum preonic_keycodes {
 #define TD_WSP6     TD(TD_KC6)
 #define TD_WSP7     TD(TD_KC7)
 #define TD_WSP8     TD(TD_KC8)
+#define TD_LGUI     TD(TD_LGU)
+#define TD_LALT     TD(TD_LAL)
 
 
 // layer toggle helpers
@@ -90,7 +97,9 @@ enum {
   TD_KC5,
   TD_KC6,
   TD_KC7,
-  TD_KC8
+  TD_KC8,
+  TD_LGU,
+  TD_LAL
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -107,7 +116,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_KC5]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_5), LGUI(LSFT(KC_5))),
   [TD_KC6]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), LGUI(LSFT(KC_6))),
   [TD_KC7]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_7), LGUI(LSFT(KC_7))),
-  [TD_KC8]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), LGUI(LSFT(KC_8)))
+  [TD_KC8]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), LGUI(LSFT(KC_8))),
+  [TD_LGU]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _LGUI),
+  [TD_LAL]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, _LALT)
 };
 
 
@@ -143,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    KC_LCTL, MC_AJLR, KC_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, _______, _______, MC_HQWE
+    KC_LCTL, MC_AJLR, TD_LALT, TD_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, _______, _______, MC_HQWE
   ),
 
 
@@ -218,20 +229,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* Fn
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │ LINE  │       │       │       │       │       │       │       │       │  LINE │       │
-  * │       │ START │       │       │       │       │       │       │       │       │   END │       │
+  * │       │ START │       │       │       │       │   +   │   =   │   :   │   ;   │   END │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
+  * │ CHAT  │       │       │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │ TERM  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │   _   │   |   │   -   │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
@@ -241,11 +252,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     Fn End */
 
   [_FN] = LAYOUT_preonic_grid(
-    _______, TD_CIRC, _______, _______, _______, _______, _______, _______, _______, _______, TD_DLR,  _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MC_HFN
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, TD_CIRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_COLN, KC_SCLN, TD_DLR,  XXXXXXX,
+    MC_CHAT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, MC_TERM,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
 
 
@@ -313,6 +324,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, KC_MPLY,
     KC_LSPO, KC_BRID, _______, _______, _______, _______, _______, KC_MUTE, _______, _______, KC_BRIU, KC_RSPC,
     RESET,   MC_XMKL, _______, _______, _______, _______, _______, _______, _______, _______, _______, MC_HADJ
+  ),
+
+
+ /* LGUI
+  * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │ TPAD  │       │       │       │       │       │       │
+  * │       │       │       │       │       │ TOGGLE│       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │ CAPS  │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │LYR TGL│       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
+    LGUI End */
+
+  [_LGUI] = LAYOUT_preonic_grid(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_TTGL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, TD_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  ),
+
+ /* LALT
+  * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │LYT_TGL│       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
+    LALT End */
+
+  [_LALT] = LAYOUT_preonic_grid(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, TD_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 
 };
