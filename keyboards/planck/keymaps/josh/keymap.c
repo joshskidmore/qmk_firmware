@@ -7,8 +7,8 @@
 #define _FN 6
 #define _BARRIER 7
 #define _ADJUST 16
-#define _LGUI 18
-#define _LALT 19
+#define _LALT 18
+#define _LCTL 19
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -123,8 +123,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 #define TD_WSP6     TD(TD_KC6)
 #define TD_WSP7     TD(TD_KC7)
 #define TD_WSP8     TD(TD_KC8)
-#define TD_LGUI     TD(TD_LGU)
 #define TD_LALT     TD(TD_LAL)
+#define TD_LCTL     TD(TD_LCT)
 
 
 // layer toggle helpers
@@ -150,8 +150,8 @@ enum {
   TD_KC6,
   TD_KC7,
   TD_KC8,
-  TD_LGU,
-  TD_LAL
+  TD_LAL,
+  TD_LCT
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -169,8 +169,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_KC6]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_6), LGUI(LSFT(KC_6))),
   [TD_KC7]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_7), LGUI(LSFT(KC_7))),
   [TD_KC8]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), LGUI(LSFT(KC_8))),
-  [TD_LGU]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _LGUI),
-  [TD_LAL]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, _LALT)
+  [TD_LAL]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, _LALT),
+  [TD_LCT]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCTL, _LCTL)
 };
 
 
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    KC_LCTL, MC_AJLR, TD_LALT, TD_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, _______, _______, MC_HQWE
+    TD_LCTL, MC_AJLR, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, _______, _______, MC_HQWE
   ),
 
 
@@ -350,7 +350,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
- /* LGUI
+ /* LALT
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
   * │       │       │       │       │       │ TPAD  │       │       │       │       │       │       │
   * │       │       │       │       │       │ TOGGLE│       │       │       │       │       │       │
@@ -365,19 +365,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │LYR TGL│       │               │       │       │       │       │       │
+  * │       │       │LYR TGL│       │       │               │       │       │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     LGUI End */
 
-  [_LGUI] = LAYOUT_planck_grid(
+  [_LALT] = LAYOUT_planck_grid(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_TTGL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, TD_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, TD_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
- /* LALT
+ /* LCTL
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -392,16 +392,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │LYR TGL│       │       │               │       │       │       │       │       │
+  * │LYR TGL│       │       │       │       │               │       │       │       │       │       │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
-    LALT End */
+    LCTL End */
 
-  [_LALT] = LAYOUT_planck_grid(
+  [_LCTL] = LAYOUT_planck_grid(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, TD_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_T,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 
 };
