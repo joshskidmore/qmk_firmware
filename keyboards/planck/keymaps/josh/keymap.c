@@ -267,15 +267,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /* Fn
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
   * │       │ LINE  │       │       │       │       │       │       │       │       │  LINE │       │
-  * │       │ START │       │       │       │       │   +   │   =   │   :   │   $   │   END │       │
+  * │       │ START │       │   =   │       │   +   │       │   _   │       │       │   END │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │ CHAT  │       │       │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │ TERM  │
+  * │ CHAT  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │ TERM  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │   _   │   |   │   -   │       │       │       │       │
+  * │       │       │       │       │       │       │   |   │   -   │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
@@ -285,9 +285,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     Fn End */
 
   [_FN] = LAYOUT_planck_grid(
-    XXXXXXX, TD_CIRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_COLN, KC_SCLN, TD_DLR,  XXXXXXX,
-    MC_CHAT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, MC_TERM,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UNDS, KC_PIPE, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, TD_CIRC, XXXXXXX, KC_EQL,  XXXXXXX, KC_PLUS, XXXXXXX, KC_UNDS, XXXXXXX, XXXXXXX, TD_DLR,  XXXXXXX,
+    MC_CHAT, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, MC_TERM,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
 
