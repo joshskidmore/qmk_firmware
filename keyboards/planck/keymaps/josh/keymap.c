@@ -266,29 +266,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* Fn
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │       │ LINE  │       │       │       │       │       │       │       │       │  LINE │       │
-  * │       │ START │       │   =   │       │   +   │       │   _   │       │       │   END │       │
+  * │ PLAY  │ LINE  │   ~   │       │       │       │       │       │       │       │  LINE │       │
+  * │ PAUSE │ START │       │   =   │       │   +   │       │   _   │       │       │   END │       │
+  * │       │       │   `   │       │       │       │       │       │       │       │       │       │
+  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │ MUTE  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │ CHAT  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │ TERM  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │   |   │   -   │       │       │       │       │
+  * │ LSFT  │       │       │       │       │       │   |   │   -   │       │       │       │ RSFT  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │       │     XXXXX     │       │       │       │       │ HELP  │
+  * │       │       │       │       │ CHAT  │     XXXXX     │ TERM  │       │       │       │ HELP  │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Fn End */
 
   [_FN] = LAYOUT_planck_grid(
-    XXXXXXX, TD_CIRC, XXXXXXX, KC_EQL,  XXXXXXX, KC_PLUS, XXXXXXX, KC_UNDS, XXXXXXX, XXXXXXX, TD_DLR,  XXXXXXX,
-    MC_CHAT, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, MC_TERM,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
+    KC_MPLY, TD_CIRC, KC_GRV,  KC_EQL,  XXXXXXX, KC_PLUS, XXXXXXX, KC_UNDS, XXXXXXX, XXXXXXX, TD_DLR,  XXXXXXX,
+    KC_MUTE, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_CHAT, XXXXXXX, XXXXXXX, MC_TERM, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
 
 
@@ -400,8 +400,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LCTL] = LAYOUT_planck_grid(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_T,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    TD_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 
 };
