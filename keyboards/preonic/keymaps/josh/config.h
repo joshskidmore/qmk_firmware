@@ -1,3 +1,3 @@
-#define TAPPING_TERM 200
+#define TAPPING_TERM 220
 
 #include "../../config.h"

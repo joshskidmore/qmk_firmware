@@ -73,6 +73,9 @@ enum preonic_keycodes {
 #define TD_WSP8     TD(TD_KC8)
 #define TD_LALT     TD(TD_LAL)
 #define TD_LCTL     TD(TD_LCT)
+#define TD_LEFT     TD(TD_LFT)
+#define TD_RGHT     TD(TD_RGT)
+#define TD_SLSH     TD(TD_SLS)
 
 
 // layer toggle helpers
@@ -99,7 +102,10 @@ enum {
   TD_KC7,
   TD_KC8,
   TD_LAL,
-  TD_LCT
+  TD_LCT,
+  TD_LFT,
+  TD_RGT,
+  TD_SLS
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -118,7 +124,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_KC7]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_7), LGUI(LSFT(KC_7))),
   [TD_KC8]        = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_8), LGUI(LSFT(KC_8))),
   [TD_LAL]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LALT, _LALT),
-  [TD_LCT]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCTL, _LCTL)
+  [TD_LCT]        = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LCTL, _LCTL),
+  [TD_LFT]        = ACTION_TAP_DANCE_DOUBLE(KC_CIRC, KC_HOME),
+  [TD_RGT]        = ACTION_TAP_DANCE_DOUBLE(KC_DLR, KC_END),
+  [TD_SLS]        = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_BSLS)
 };
 
 
@@ -144,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │   (   │   z   │   x   │   c   │   v   │   b   │   n   │   m   │ ,  -  │   .   │   /   │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │      FN       │       │       │       │       │       │
-  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │ BARRI │       │       │ HELP  │
+  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │ BARRI │ RSUP  │       │ HELP  │
   * │       │       │       │       │       │     SPACE     │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Qwerty End */
@@ -154,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    TD_LCTL, MC_AJLR, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, _______, _______, MC_HQWE
+    TD_LCTL, MC_AJLR, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, KC_RGUI, _______, MC_HQWE
   ),
 
 
@@ -233,30 +242,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │ PLAY  │ LINE  │   ~   │       │       │       │       │       │       │       │  LINE │       │
-  * │ PAUSE │ START │       │   =   │       │   +   │       │   _   │       │       │   END │       │
-  * │       │       │   `   │       │       │       │       │       │       │       │       │       │
+  * │ PLAY  │ LINE  │       │       │       │       │       │       │       │       │  LINE │       │
+  * │ PAUSE │ START │   `   │       │       │   +   │   =   │   _   │   -   │   |   │   END │       │
+  * │       │ HOME  │       │       │       │       │       │       │       │       │   END │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * │ MUTE  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │ LSFT  │       │       │       │       │       │   |   │   -   │       │       │       │ RSFT  │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │   \   │ {  {  │ }  }  │       │       │
+  * │ LSFT  │       │       │       │       │ PG DN │ PG UP │       │       │       │       │ RSFT  │
+  * │       │       │       │       │       │       │       │   /   │ [  {  │ ]  }  │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │               │       │       │       │       │       │
-  * │       │       │       │       │ CHAT  │     XXXXX     │ TERM  │       │       │       │ HELP  │
+  * │       │       │       │       │  SCRL │               │  SCRL │       │       │       │       │
+  * │       │       │       │       │   DN  │     XXXXX     │   UP  │       │       │       │ HELP  │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Fn End */
 
   [_FN] = LAYOUT_preonic_grid(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    KC_MPLY, TD_CIRC, KC_GRV,  KC_EQL,  XXXXXXX, KC_PLUS, XXXXXXX, KC_UNDS, XXXXXXX, XXXXXXX, TD_DLR,  XXXXXXX,
+    KC_MPLY, TD_LEFT, KC_GRV,  XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_UNDS, KC_MINS, KC_PIPE, TD_RGHT, XXXXXXX,
     KC_MUTE, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
-    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PIPE, KC_MINS, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MC_CHAT, XXXXXXX, XXXXXXX, MC_TERM, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
+    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, TD_SLSH, TD_LBRC, TD_RBRC, XXXXXXX, KC_RSFT,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, XXXXXXX, XXXXXXX, KC_WFWD, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
 
 
