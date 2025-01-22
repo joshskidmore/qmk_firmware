@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │       │       │       │       │       │       │       │       │       │       │   -   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │   +   │   -   │       │       │       │       │       │       │       │       │  DEL  │
+  * │       │       │       │       │       │       │       │       │       │       │       │  DEL  │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │       │       │       │       │       │
@@ -239,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_planck_grid(
     MC_XMSW, TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, _______, KC_PSCR, KC_MINS,
-    _______, KC_PLUS, KC_PMNS, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     KC_LBRC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RBRC,
     _______, _______, _______, _______, _______, MC_RFIW, MC_RFIW, _______, _______, _______, _______, MC_HRAI
   ),
@@ -281,9 +281,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │ PAUSE │ START │   `   │       │       │   +   │   =   │   _   │   -   │   |   │   END │       │
   * │       │ HOME  │       │       │       │       │       │       │       │       │   END │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │ MUTE  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │       │       │       │ ZOOM  │ ZOOM  │       │       │       │       │       │       │       │
+  * │ MUTE  │   :   │   ;   │ OUT   │ IN    │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
+  * │       │       │       │ -/_   │ =/+   │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │   \   │ {  {  │ }  }  │       │       │
   * │ LSFT  │       │       │       │       │ PG DN │ PG UP │       │       │       │       │ RSFT  │
@@ -297,7 +297,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN] = LAYOUT_planck_grid(
     KC_MPLY, TD_LEFT, KC_GRV,  XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_UNDS, KC_MINS, KC_PIPE, TD_RGHT, XXXXXXX,
-    KC_MUTE, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+    KC_MUTE, KC_COLN, KC_SCLN, KC_MINS, KC_EQL,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, TD_SLSH, TD_LBRC, TD_RBRC, XXXXXXX, KC_RSFT,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, XXXXXXX, XXXXXXX, KC_WFWD, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
