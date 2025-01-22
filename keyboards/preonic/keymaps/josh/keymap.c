@@ -27,18 +27,18 @@ enum preonic_keycodes {
 #define MC_ROFI     LGUI(KC_P)                  // rofi
 #define MC_RFIW     LGUI(KC_G)                  // rofi: windows
 #define MC_RFIM     LGUI(KC_O)                  // rofi: menu
-#define MC_BAR1     LALT(LSFT(KC_1))            // barrier: 1
-#define MC_BAR2     LALT(LSFT(KC_2))            // barrier: 2
-#define MC_BAR3     LALT(LSFT(KC_3))            // barrier: 3
-#define MC_BAR4     LALT(LSFT(KC_4))            // barrier: 4
-#define MC_BAR5     LALT(LSFT(KC_5))            // barrier: 5
-#define MC_BAR6     LALT(LSFT(KC_6))            // barrier: 6
-#define MC_BAR7     LALT(LSFT(KC_7))            // barrier: 7
-#define MC_BAR8     LALT(LSFT(KC_8))            // barrier: 8
-#define MC_BAR9     LALT(LSFT(KC_9))            // barrier: 9
-#define MC_BAR0     LALT(LSFT(KC_0))            // barrier: 0
-#define MC_BLFT     LALT(LSFT(KC_LEFT))         // barrier: prev
-#define MC_BRGT     LALT(LSFT(KC_RGHT))         // barrier: next
+#define MC_BAR1     LCTL(LSFT(KC_F1))            // barrier: 1
+#define MC_BAR2     LCTL(LSFT(KC_F2))            // barrier: 2
+#define MC_BAR3     LCTL(LSFT(KC_F3))            // barrier: 3
+#define MC_BAR4     LCTL(LSFT(KC_F4))            // barrier: 4
+#define MC_BAR5     LCTL(LSFT(KC_F5))            // barrier: 5
+#define MC_BAR6     LCTL(LSFT(KC_F6))            // barrier: 6
+#define MC_BAR7     LCTL(LSFT(KC_F7))            // barrier: 7
+#define MC_BAR8     LCTL(LSFT(KC_F8))            // barrier: 8
+#define MC_BAR9     LCTL(LSFT(KC_F9))            // barrier: 9
+#define MC_BAR0     LCTL(LSFT(KC_F10))           // barrier: 0
+#define MC_BLFT     LCTL(LSFT(KC_LEFT))         // barrier: prev
+#define MC_BRGT     LCTL(LSFT(KC_RGHT))         // barrier: next
 #define MC_RBAR     LGUI(LCTL(KC_F9))           // rofi-barrier.sh
 #define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
 #define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
@@ -54,6 +54,8 @@ enum preonic_keycodes {
 #define MC_TERM     LGUI(KC_ENT)                // term
 #define MC_CHAT     LGUI(KC_DOT)                // chat
 #define MC_TTGL     LGUI(LSFT(KC_T))            // touchpad toggle
+#define MC_MAC      LM(_QWERTY, MOD_RCTL|MOD_LALT)
+#define MC_BRR      LM(_QWERTY, MOD_LALT|MOD_LSFT)
 
 
 // tap dance helpers
@@ -153,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │   (   │   z   │   x   │   c   │   v   │   b   │   n   │   m   │ ,  -  │   .   │   /   │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │      FN       │       │       │       │       │       │
-  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │ BARRI │ RSUP  │ RALT  │ HELP  │
+  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │  MAC  │ BARRI │ RALT  │ HELP  │
   * │       │       │       │       │       │     SPACE     │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Qwerty End */
@@ -163,16 +165,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    TD_LCTL, MC_AJLR, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_BRLR, KC_RGUI, KC_RALT, MC_HQWE
+    TD_LCTL, MC_AJLR, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_MAC,  MC_BRLR, KC_RALT, MC_HQWE
   ),
 
 
 
  /* Raise
   * ┌───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┬───────┐
-  * │       │       │       │       │       │       │       │       │       │       │       │   _   │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
-  * │       │       │       │       │       │       │       │       │       │       │       │   -   │
+  * │       │       │       │       │       │       │       │       │       │       │   -   │   +   │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │ XMON  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │  WSP  │       │       │       │
   * │ SW SCR│   1   │   2   │   3   │   4   │   5   │   6   │   7   │   8   │       │ PRINT │  DEL  │
@@ -193,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     Raise End */
 
   [_RAISE] = LAYOUT_preonic_grid(
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MINS,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PMNS, KC_PLUS,
     MC_XMSW, TD_WSP1, TD_WSP2, TD_WSP3, TD_WSP4, TD_WSP5, TD_WSP6, TD_WSP7, TD_WSP8, _______, KC_PSCR, KC_DEL ,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     KC_LBRC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RBRC,
