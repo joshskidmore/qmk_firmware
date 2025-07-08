@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "planck.h"
 #include "action_layer.h"
 
 #define _QWERTY 0
@@ -70,44 +71,46 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 }
 
 // macros
-#define MC_LOWR     MO(_LOWER)                  // lower layer
-#define MC_RAIS     MO(_RAISE)                  // raise layer
-#define MC_FNLR     MO(_FN)                     // fn layer
-#define MC_BRLR     MO(_BARRIER)                // barrier layer
-#define MC_AJLR     MO(_ADJUST)                 // adjust layer
-#define MC_ESCT     CTL_T(KC_ESC)               // tap for esc; hold for ctrl
-#define MC_ROFI     LGUI(KC_P)                  // rofi
-#define MC_RFIW     LGUI(KC_G)                  // rofi: windows
-#define MC_RFIM     LGUI(KC_O)                  // rofi: menu
-#define MC_BAR1     LCTL(LSFT(KC_F1))            // barrier: 1
-#define MC_BAR2     LCTL(LSFT(KC_F2))            // barrier: 2
-#define MC_BAR3     LCTL(LSFT(KC_F3))            // barrier: 3
-#define MC_BAR4     LCTL(LSFT(KC_F4))            // barrier: 4
-#define MC_BAR5     LCTL(LSFT(KC_F5))            // barrier: 5
-#define MC_BAR6     LCTL(LSFT(KC_F6))            // barrier: 6
-#define MC_BAR7     LCTL(LSFT(KC_F7))            // barrier: 7
-#define MC_BAR8     LCTL(LSFT(KC_F8))            // barrier: 8
-#define MC_BAR9     LCTL(LSFT(KC_F9))            // barrier: 9
-#define MC_BAR0     LCTL(LSFT(KC_F10))           // barrier: 0
-#define MC_BLFT     LCTL(LSFT(KC_LEFT))         // barrier: prev
-#define MC_BRGT     LCTL(LSFT(KC_RGHT))         // barrier: next
-#define MC_RBAR     LGUI(LCTL(KC_F9))           // rofi-barrier.sh
-#define MC_XAPP     LGUI(KC_A)                  // xmonad: apps menu
-#define MC_XMED     LGUI(KC_Z)                  // xmonad: volume menu
-#define MC_XMKL     LGUI(LSFT(LCTL(KC_Q)))      // xmonad: kill
-#define MC_XMSW     LGUI(KC_GRV)                // xmonad: switch screen
-#define MC_HQWE     LGUI(LCTL(KC_F1))           // roficheat: qwerty
-#define MC_HRAI     LGUI(LCTL(KC_F2))           // roficheat: raise
-#define MC_HLOW     LGUI(LCTL(KC_F3))           // roficheat: lower
-#define MC_HFN      LGUI(LCTL(KC_F4))           // roficheat: fn
-#define MC_HBAR     LGUI(LCTL(KC_F5))           // roficheat: barrier
-#define MC_HADJ     LGUI(LCTL(KC_F6))           // roficheat: adjust
-#define MC_HIDE     LGUI(KC_ESC)                // xmonad: hide window
-#define MC_TERM     LGUI(KC_ENT)                // term
-#define MC_CHAT     LGUI(KC_DOT)                // chat
-#define MC_TTGL     LGUI(LSFT(KC_T))            // touchpad toggle
+#define MC_LOWR     MO(_LOWER)                            // lower layer
+#define MC_RAIS     MO(_RAISE)                            // raise layer
+#define MC_FNLR     MO(_FN)                               // fn layer
+#define MC_BRLR     MO(_BARRIER)                          // barrier layer
+#define MC_AJLR     MO(_ADJUST)                           // adjust layer
+#define MC_ESCT     CTL_T(KC_ESC)                         // tap for esc; hold for ctrl
+#define MC_ROFI     LGUI(KC_P)                            // rofi
+#define MC_RFIW     LGUI(KC_G)                            // rofi: windows
+#define MC_RFIM     LGUI(KC_O)                            // rofi: menu
+#define MC_BAR1     LCTL(LSFT(KC_F1))                     // barrier: 1
+#define MC_BAR2     LCTL(LSFT(KC_F2))                     // barrier: 2
+#define MC_BAR3     LCTL(LSFT(KC_F3))                     // barrier: 3
+#define MC_BAR4     LCTL(LSFT(KC_F4))                     // barrier: 4
+#define MC_BAR5     LCTL(LSFT(KC_F5))                     // barrier: 5
+#define MC_BAR6     LCTL(LSFT(KC_F6))                     // barrier: 6
+#define MC_BAR7     LCTL(LSFT(KC_F7))                     // barrier: 7
+#define MC_BAR8     LCTL(LSFT(KC_F8))                     // barrier: 8
+#define MC_BAR9     LCTL(LSFT(KC_F9))                     // barrier: 9
+#define MC_BAR0     LCTL(LSFT(KC_F10))                    // barrier: 0
+#define MC_BLFT     LCTL(LSFT(KC_LEFT))                   // barrier: prev
+#define MC_BRGT     LCTL(LSFT(KC_RGHT))                   // barrier: next
+#define MC_RBAR     LGUI(LCTL(KC_F9))                     // rofi-barrier.sh
+#define MC_XAPP     LGUI(KC_A)                            // xmonad: apps menu
+#define MC_XMED     LGUI(KC_Z)                            // xmonad: volume menu
+#define MC_XMKL     LGUI(LSFT(LCTL(KC_Q)))                // xmonad: kill
+#define MC_XMSW     LGUI(KC_GRV)                          // xmonad: switch screen
+#define MC_HQWE     LGUI(LCTL(KC_F1))                     // roficheat: qwerty
+#define MC_HRAI     LGUI(LCTL(KC_F2))                     // roficheat: raise
+#define MC_HLOW     LGUI(LCTL(KC_F3))                     // roficheat: lower
+#define MC_HFN      LGUI(LCTL(KC_F4))                     // roficheat: fn
+#define MC_HBAR     LGUI(LCTL(KC_F5))                     // roficheat: barrier
+#define MC_HADJ     LGUI(LCTL(KC_F6))                     // roficheat: adjust
+#define MC_HIDE     LGUI(KC_ESC)                          // xmonad: hide window
+#define MC_TERM     LGUI(KC_ENT)                          // term
+#define MC_CHAT     LGUI(KC_DOT)                          // chat
+#define MC_TTGL     LGUI(LSFT(KC_T))                      // touchpad toggle
 #define MC_MAC      LM(_QWERTY, MOD_RCTL|MOD_RALT)
-
+#define MC_ZO       LGUI(KC_MINS)                         // zoom out (note: LCTL(KC_MINS) for non-macos)
+#define MC_ZI       LGUI(KC_EQL)                          // zoom in (note: LCTL(KC_EQL) for non-macos)
+#define MC_ZR       LGUI(KC_0)                            // zoom reset
 
 // tap dance helpers
 #define TD_SCLN     TD(TD_SCLN_QUOT)
@@ -281,25 +284,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │ PAUSE │ START │   `   │       │       │   +   │   =   │   _   │   -   │   |   │   END │       │
   * │       │ HOME  │       │       │       │       │       │       │       │       │   END │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │ ZOOM  │ ZOOM  │       │       │       │       │       │       │       │
-  * │ MUTE  │   :   │   ;   │ OUT   │ IN    │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
-  * │       │       │       │ -/_   │ =/+   │       │       │       │       │       │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
+  * │ MUTE  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
+  * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │       │       │   \   │ {  {  │ }  }  │       │       │
   * │ LSFT  │       │       │       │       │ PG DN │ PG UP │       │       │       │       │ RSFT  │
   * │       │       │       │       │       │       │       │   /   │ [  {  │ ]  }  │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │  SCRL │               │  SCRL │       │       │       │       │
-  * │       │       │       │       │   DN  │     XXXXX     │   UP  │       │       │       │ HELP  │
+  * │       │       │       │  ZOOM │  ZOOM │               │ ZOOM  │       │       │       │       │
+  * │       │       │       │  RESET│   OUT │     XXXXX     │ IN    │       │       │       │ HELP  │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Fn End */
 
   [_FN] = LAYOUT_planck_grid(
     KC_MPLY, TD_LEFT, KC_GRV,  XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_UNDS, KC_MINS, KC_PIPE, TD_RGHT, XXXXXXX,
-    KC_MUTE, KC_COLN, KC_SCLN, KC_MINS, KC_EQL,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+    KC_MUTE, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
     KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, TD_SLSH, TD_LBRC, TD_RBRC, XXXXXXX, KC_RSFT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, XXXXXXX, XXXXXXX, KC_WFWD, XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
+    XXXXXXX, XXXXXXX, XXXXXXX, MC_ZR,   MC_ZO,   XXXXXXX, XXXXXXX, MC_ZI,   XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
 
 
