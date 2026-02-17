@@ -111,6 +111,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 #define MC_ZO       LGUI(KC_MINS)                         // zoom out (note: LCTL(KC_MINS) for non-macos)
 #define MC_ZI       LGUI(KC_EQL)                          // zoom in (note: LCTL(KC_EQL) for non-macos)
 #define MC_ZR       LGUI(KC_0)                            // zoom reset
+#define MC_SL       LCTL(KC_LEFT)                         // space left
+#define MC_SR       LCTL(KC_RGHT)                         // space right
 
 // tap dance helpers
 #define TD_SCLN     TD(TD_SCLN_QUOT)
@@ -206,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │   (   │   z   │   x   │   c   │   v   │   b   │   n   │   m   │ ,  -  │   .   │   /   │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │       │       │      FN       │       │       │       │       │       │
-  * │ CTRL  │ AJST  │  ALT  │ SUPER │ LOWER │               │ RAISE │  MAC  │ BARRI │ RALT  │ HELP  │
+  * │ AJST  │ LCTRL │  ALT  │ SUPER │ LOWER │               │ RAISE │  MAC  │ BARRI │ RALT  │ HELP  │
   * │       │       │       │       │       │     SPACE     │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Qwerty End */
@@ -215,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     MC_ESCT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    TD_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
-    TD_LCTL, MC_AJLR, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_MAC,  MC_BRLR, KC_RALT, MC_HQWE
+    MC_AJLR, TD_LCTL, TD_LALT, KC_LGUI, MC_LOWR, LT_SPC,  LT_SPC,  MC_RAIS, MC_MAC,  MC_BRLR, KC_RALT, MC_HQWE
   ),
 
 
@@ -288,8 +290,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │ MUTE  │   :   │   ;   │       │       │       │ LEFT  │ DOWN  │  UP   │ RIGHT │       │       │
   * │       │       │       │       │       │       │       │       │       │       │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │       │       │       │       │       │       │   \   │ {  {  │ }  }  │       │       │
-  * │ LSFT  │       │       │       │       │ PG DN │ PG UP │       │       │       │       │ RSFT  │
+  * │       │ SPACE │       │       │       │       │       │   \   │ {  {  │ }  }  │ SPACE │       │
+  * │ LSFT  │  LEFT │       │       │       │ PG DN │ PG UP │       │       │       │ RIGHT │ RSFT  │
   * │       │       │       │       │       │       │       │   /   │ [  {  │ ]  }  │       │       │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
   * │       │       │       │  ZOOM │  ZOOM │               │ ZOOM  │       │       │       │       │
@@ -301,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = LAYOUT_planck_grid(
     KC_MPLY, TD_LEFT, KC_GRV,  XXXXXXX, XXXXXXX, KC_PLUS, KC_EQL,  KC_UNDS, KC_MINS, KC_PIPE, TD_RGHT, XXXXXXX,
     KC_MUTE, KC_COLN, KC_SCLN, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
-    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, TD_SLSH, TD_LBRC, TD_RBRC, XXXXXXX, KC_RSFT,
+    KC_LSFT, MC_SL,   XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, TD_SLSH, TD_LBRC, TD_RBRC, MC_SR,   KC_RSFT,
     XXXXXXX, XXXXXXX, XXXXXXX, MC_ZR,   MC_ZO,   XXXXXXX, XXXXXXX, MC_ZI,   XXXXXXX, XXXXXXX, XXXXXXX, MC_HFN
   ),
 
@@ -350,8 +352,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │       │ DN    │       │       │       │       │       │(M)UTE │       │       │ UP    │       │
   * │   (   │       │       │       │       │       │       │       │       │       │       │   )   │
   * ├───────┼───────┼───────┼───────┼───────┼───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-  * │       │ XM    │       │       │       │               │       │       │       │       │       │
-  * │ RESET │ KILL  │       │       │ XXXXX │               │ XXXXX │       │       │       │ HELP  │
+  * │ XM    │       │       │       │       │               │       │       │       │       │       │
+  * │ KILL  │ RESET │       │       │ XXXXX │               │ XXXXX │       │       │       │ HELP  │
   * │       │       │       │       │       │               │       │       │       │       │       │
   * └───────┴───────┴───────┴───────┴───────┴───────────────┴───────┴───────┴───────┴───────┴───────┘
     Adjust End */
@@ -360,7 +362,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
     RGB_HUI, _______, _______, _______,  _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, _______, KC_MPLY,
     KC_LSPO, KC_BRID, RGB_MOD, RGB_RMOD, _______, _______, _______, KC_MUTE, _______, _______, KC_BRIU, KC_RSPC,
-    RESET,   MC_XMKL, RGB_TOG, RGB_M_P,  _______, _______, _______, _______, _______, _______, _______, MC_HADJ
+    MC_XMKL, RESET,   RGB_TOG, RGB_M_P,  _______, _______, _______, _______, _______, _______, _______, MC_HADJ
   ),
 
 
